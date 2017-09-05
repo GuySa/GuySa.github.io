@@ -17,7 +17,7 @@ address.
 The project is defined very loosely and is missing a lot. this is just a concept I might improve if
 I have some free time. 
 
-##Partial To-do list:
+#Partial To-do list:
 * no security measurements were taken into account. 
 * think about authentication when submitting a new entry.
 * add a DB that saves entries (right now it does nothing...).
