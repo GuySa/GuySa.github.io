@@ -1,0 +1,17 @@
+---
+layout: post
+title: Tyson
+category: posts
+---
+
+I Help mentor FRC team [Elysium 1937](https://facebook.com/elysium1937). This is the computer vision
+we did for the 2017 season. It is written in python with openCV, originally we ran it on a
+raspberry pi mounted on our robot with a webcam. I wrote a part of it and the rest was done by the
+team. A big part of the work was teaching python and openCV and begging them to use git and work
+properly (the begging didn't work).
+
+you can find the source [on github][source code]
+
+---
+
+[source code]: https://github.com/Elysium1937/Tyson
