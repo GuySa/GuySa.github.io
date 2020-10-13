@@ -1,0 +1,8 @@
+permalink: /posts/:title
+markdown: kramdown
+
+gems:
+  - jekyll-sitemap
+
+name: Guy Sapire
+description: My personal site
