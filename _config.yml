@@ -1,3 +1,4 @@
+url: "https://guysa.github.io"
 permalink: /writing/:title/
 markdown: kramdown
 
@@ -5,7 +6,7 @@ plugins:
   - jekyll-sitemap
 
 name: Guy Sapire
-description: "Guy Sapire — PhD student and developer."
+description: "Guy Sapire — math PhD student working in algebraic geometry and number theory."
 
 exclude:
   - Gemfile
