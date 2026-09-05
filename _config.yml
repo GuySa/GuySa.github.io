@@ -1,8 +1,14 @@
-permalink: /posts/:title
+permalink: /writing/:title/
 markdown: kramdown
 
-gems:
+plugins:
   - jekyll-sitemap
 
 name: Guy Sapire
-description: My personal site
+description: "Guy Sapire — PhD student and developer."
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
