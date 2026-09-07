@@ -76,6 +76,12 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
+.nav-sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--border);
+}
+
 .section {
   padding: 56px 0;
 }
