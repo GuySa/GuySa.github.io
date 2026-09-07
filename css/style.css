@@ -95,6 +95,23 @@ h1, h2, h3 {
   margin-bottom: 20px;
 }
 
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.section-heading h2 {
+  margin-bottom: 20px;
+}
+
+.to-top {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -193,16 +210,53 @@ h1, h2, h3 {
   font-size: 0.9rem;
 }
 
+.notes-disclaimer {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0 0 20px;
+}
+
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notes-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.notes-list li:first-child {
+  padding-top: 0;
+}
+
+.notes-list li:last-child {
+  border-bottom: none;
+}
+
+.note-title {
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.note-meta {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 .teaching-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .teaching-table th,
 .teaching-table td {
   text-align: left;
-  padding: 6px 10px;
+  padding: 4px 10px;
   border-bottom: 1px solid var(--border);
 }
 
