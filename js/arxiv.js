@@ -197,6 +197,8 @@
   }
 
   function paperCard(paper, badgeLabel) {
+    var absUrl = escapeHtml(paper.abs_url);
+    var pdfUrl = escapeHtml(paper.pdf_url);
     var authors = paper.authors.join(", ");
     var extras = [];
     if (paper.comment) extras.push(escapeHtml(paper.comment));
@@ -215,11 +217,11 @@
           '<span class="arxiv-tag arxiv-tag-' + badgeLabel.toLowerCase().replace(/[^a-z]/g, "-") + '">' + badgeLabel + "</span>" +
           categoryBadges +
         "</div>" +
-        '<h3 class="arxiv-paper-title"><a href="' + paper.abs_url + '" target="_blank" rel="noopener">' + escapeHtml(paper.title) + "</a></h3>" +
+        '<h3 class="arxiv-paper-title"><a href="' + absUrl + '" target="_blank" rel="noopener">' + escapeHtml(paper.title) + "</a></h3>" +
         '<p class="arxiv-paper-authors">' + escapeHtml(authors) + "</p>" +
         "<details class=\"arxiv-abstract\"><summary>Abstract</summary><p>" + escapeHtml(paper.abstract) + "</p></details>" +
         (extras.length ? '<p class="arxiv-paper-extra">' + extras.join(" &middot; ") + "</p>" : "") +
-        '<p class="arxiv-paper-links"><a href="' + paper.abs_url + '" target="_blank" rel="noopener">abstract</a> &middot; <a href="' + paper.pdf_url + '" target="_blank" rel="noopener">pdf</a></p>' +
+        '<p class="arxiv-paper-links"><a href="' + absUrl + '" target="_blank" rel="noopener">abstract</a> &middot; <a href="' + pdfUrl + '" target="_blank" rel="noopener">pdf</a></p>' +
       "</article>"
     );
   }

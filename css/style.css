@@ -538,6 +538,11 @@ h1, h2, h3 {
   color: #fff;
 }
 
+.arxiv-tag-cross {
+  background: var(--text-muted);
+  color: #fff;
+}
+
 .arxiv-badge {
   font-size: 0.7rem;
   padding: 2px 8px;

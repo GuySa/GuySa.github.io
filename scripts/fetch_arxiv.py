@@ -129,33 +129,36 @@ def parse_entries(xml_bytes):
 def main():
     cutoff = datetime.now(timezone.utc) - timedelta(days=WINDOW_DAYS)
 
+    # arXiv's sortBy=submittedDate is keyed on the returned version's
+    # announce/update timestamp, not the original (v1) published date, so a
+    # recently-revised old paper can surface ahead of genuinely new ones.
+    # Rather than stop as soon as we see one paper below the cutoff, page
+    # through everything (up to MAX_RESULTS) and filter by published date
+    # afterwards, so a stray old-but-updated entry can't cut the fetch short.
     papers = {}
     start = 0
     page_size = 200
-    stop = False
-    while start < MAX_RESULTS and not stop:
+    while start < MAX_RESULTS:
         batch = min(page_size, MAX_RESULTS - start)
         try:
             xml_bytes = fetch_page(start, batch)
-        except urllib.error.URLError as exc:
+            entries = list(parse_entries(xml_bytes))
+        except (OSError, ET.ParseError) as exc:
             print(f"error fetching start={start}: {exc}", file=sys.stderr)
             break
 
-        got_any = False
-        for paper in parse_entries(xml_bytes):
-            got_any = True
+        if not entries:
+            break
+        for paper in entries:
             try:
                 published_dt = datetime.fromisoformat(paper["published"].replace("Z", "+00:00"))
             except ValueError:
                 continue
             if published_dt < cutoff:
-                stop = True
                 continue
             # Keep the newest-seen record per paper id (dedupes across pages).
             papers[paper["id"]] = paper
 
-        if not got_any:
-            break
         start += batch
         time.sleep(3)  # be polite to arXiv's API
 
@@ -173,4 +176,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:  # noqa: BLE001 - a stale/missing digest beats blocking the whole site deploy
+        print(f"fetch_arxiv.py failed: {exc}", file=sys.stderr)
