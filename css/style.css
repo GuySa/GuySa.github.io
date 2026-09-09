@@ -66,6 +66,12 @@ h1, h2, h3 {
 
 .nav {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-row {
+  display: flex;
   flex-wrap: wrap;
   row-gap: 8px;
   gap: 24px;
@@ -76,10 +82,16 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
-.nav-sep {
-  width: 1px;
-  align-self: stretch;
-  background: var(--border);
+.nav-row-pages {
+  font-size: 0.9rem;
+}
+
+.nav-row-pages a {
+  color: var(--text-muted);
+}
+
+.nav-row-pages a:hover {
+  color: var(--accent);
 }
 
 .section {
@@ -304,7 +316,7 @@ h1, h2, h3 {
 }
 
 .hero-small .nav {
-  gap: 24px;
+  gap: 10px;
 }
 
 .narrow {
@@ -350,4 +362,143 @@ h1, h2, h3 {
   color: var(--text-muted);
   font-size: 0.9rem;
   white-space: nowrap;
+}
+
+/* arXiv digest */
+
+.arxiv-controls {
+  margin-bottom: 12px;
+}
+
+.arxiv-search {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-family: inherit;
+}
+
+.arxiv-category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.chip {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+}
+
+.chip-selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.arxiv-date-group {
+  margin-top: 40px;
+}
+
+.arxiv-date-group h2 {
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.arxiv-subhead {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  margin: 24px 0 12px;
+}
+
+.arxiv-paper {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.arxiv-paper-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.arxiv-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--bg-alt);
+  color: var(--text-muted);
+}
+
+.arxiv-tag-new {
+  background: var(--accent);
+  color: #fff;
+}
+
+.arxiv-badge {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.arxiv-badge-primary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.arxiv-paper-title {
+  font-size: 1.05rem;
+  margin: 0 0 4px;
+}
+
+.arxiv-paper-authors {
+  color: var(--text-muted);
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+}
+
+.arxiv-abstract summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.arxiv-abstract p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+}
+
+.arxiv-paper-extra {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 8px 0 0;
+}
+
+.arxiv-paper-links {
+  font-size: 0.85rem;
+  margin: 8px 0 0;
 }

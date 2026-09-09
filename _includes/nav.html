@@ -1,13 +1,17 @@
 {% assign prefix = "" %}
 {% unless page.url == "/" %}{% assign prefix = "/" %}{% endunless %}
 <nav class="nav">
-  {% unless page.url == "/" %}<a href="/">Home</a>{% endunless %}
-  <a href="{{ prefix }}#about">About</a>
-  <a href="{{ prefix }}#publications">Publications</a>
-  <a href="{{ prefix }}#prizes">Prizes</a>
-  <a href="{{ prefix }}#teaching">Teaching</a>
-  <a href="{{ prefix }}#notes">Notes &amp; Miscellaneous</a>
-  <a href="{{ prefix }}#contact">Contact</a>
-  <span class="nav-sep" aria-hidden="true"></span>
-  <a href="/writing/">Writing</a>
+  <div class="nav-row nav-row-anchors">
+    <a href="{{ prefix }}#about">About</a>
+    <a href="{{ prefix }}#publications">Publications</a>
+    <a href="{{ prefix }}#prizes">Prizes</a>
+    <a href="{{ prefix }}#teaching">Teaching</a>
+    <a href="{{ prefix }}#notes">Notes &amp; Miscellaneous</a>
+    <a href="{{ prefix }}#contact">Contact</a>
+  </div>
+  <div class="nav-row nav-row-pages">
+    {% unless page.url == "/" %}<a href="/">Home</a>{% endunless %}
+    <a href="/writing/">Writing</a>
+    <a href="/arxiv/">arXiv Digest</a>
+  </div>
 </nav>
