@@ -439,6 +439,34 @@ h1, h2, h3 {
   font-size: 0.9rem;
 }
 
+.arxiv-range {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.arxiv-range-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.arxiv-range-btn:hover {
+  border-color: var(--accent);
+}
+
+.arxiv-range-btn-active {
+  background: var(--text);
+  border-color: var(--text);
+  color: #fff;
+}
+
 .chip {
   font: inherit;
   font-size: 0.85rem;

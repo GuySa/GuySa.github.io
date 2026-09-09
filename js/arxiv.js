@@ -3,17 +3,22 @@
 
   var DATA_URL = "/assets/data/arxiv.json";
   var STORAGE_KEY = "arxivDigest.categories";
+  var RANGE_STORAGE_KEY = "arxivDigest.range";
   var DEFAULT_CATEGORIES = ["math.AG", "math.NT"];
+  var DEFAULT_RANGE = "latest"; // "latest" (most recent announcement day) or "all" (the full fetch window)
 
   var searchInput = document.getElementById("arxiv-search");
   var selectedChipsEl = document.getElementById("arxiv-selected");
   var dropdownEl = document.getElementById("arxiv-dropdown");
+  var rangeEl = document.getElementById("arxiv-range");
   var metaEl = document.getElementById("arxiv-meta");
   var resultsEl = document.getElementById("arxiv-results");
 
   var allCategories = [];
   var selected = new Set();
+  var rangeMode = DEFAULT_RANGE;
   var papersByCategory = null; // populated once data loads
+  var windowDays = null;
 
   function categoriesFromUrl() {
     var params = new URLSearchParams(window.location.search);
@@ -33,6 +38,21 @@
     }
   }
 
+  function rangeFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var raw = params.get("range");
+    return raw === "latest" || raw === "all" ? raw : null;
+  }
+
+  function rangeFromStorage() {
+    try {
+      var raw = window.localStorage.getItem(RANGE_STORAGE_KEY);
+      return raw === "latest" || raw === "all" ? raw : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   function persistSelection() {
     var codes = Array.from(selected);
     try {
@@ -46,6 +66,31 @@
       url.searchParams.delete("cats");
     }
     window.history.replaceState(null, "", url.toString());
+  }
+
+  function persistRange() {
+    try {
+      window.localStorage.setItem(RANGE_STORAGE_KEY, rangeMode);
+    } catch (e) { /* ignore (private browsing, etc.) */ }
+
+    var url = new URL(window.location.href);
+    url.searchParams.set("range", rangeMode);
+    window.history.replaceState(null, "", url.toString());
+  }
+
+  function setRange(mode) {
+    rangeMode = mode;
+    persistRange();
+    renderRangeButtons();
+    renderResults();
+  }
+
+  function renderRangeButtons() {
+    Array.prototype.forEach.call(rangeEl.querySelectorAll(".arxiv-range-btn"), function (btn) {
+      var isActive = btn.getAttribute("data-range") === rangeMode;
+      btn.classList.toggle("arxiv-range-btn-active", isActive);
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
   }
 
   function toggleCategory(code) {
@@ -209,6 +254,10 @@
       return;
     }
 
+    if (rangeMode === "latest") {
+      dates = dates.slice(0, 1);
+    }
+
     var html = "";
     dates.forEach(function (date) {
       var group = byDate[date];
@@ -231,6 +280,7 @@
   function init(data) {
     allCategories = data.categories;
     papersByCategory = data.papers;
+    windowDays = data.window_days;
 
     var initial = categoriesFromUrl() || categoriesFromStorage() || DEFAULT_CATEGORIES;
     var validCodes = new Set(allCategories.map(function (c) { return c.code; }));
@@ -238,14 +288,23 @@
       if (validCodes.has(code)) selected.add(code);
     });
 
+    rangeMode = rangeFromUrl() || rangeFromStorage() || DEFAULT_RANGE;
+
     renderSelectedChips();
     renderDropdown("");
+    renderRangeButtons();
     renderResults();
 
     var generated = new Date(data.generated_at);
     metaEl.textContent =
-      "Showing submissions from the last " + data.window_days + " days, as of " +
-      generated.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) + ".";
+      "Data fetched " + generated.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) +
+      " (arXiv's last " + windowDays + " days of submissions).";
+
+    rangeEl.addEventListener("click", function (e) {
+      var btn = e.target.closest(".arxiv-range-btn");
+      if (!btn) return;
+      setRange(btn.getAttribute("data-range"));
+    });
 
     searchInput.addEventListener("input", function () {
       renderDropdown(searchInput.value);
@@ -276,6 +335,8 @@
     .then(init)
     .catch(function (err) {
       metaEl.textContent = "Couldn't load the digest data. Please try again later.";
+      searchInput.disabled = true;
+      searchInput.placeholder = "Digest data unavailable";
       console.error(err);
     });
 })();

@@ -14,6 +14,10 @@ title: arXiv Digest
           <input type="text" id="arxiv-search" class="arxiv-search" autocomplete="off" placeholder="Add a category&hellip; (e.g. &ldquo;algebraic&rdquo; or &ldquo;math.AG&rdquo;)" aria-label="Search categories">
           <div id="arxiv-dropdown" class="arxiv-dropdown" role="listbox" aria-label="Categories" hidden></div>
         </div>
+        <div id="arxiv-range" class="arxiv-range" role="group" aria-label="Date range">
+          <button type="button" class="arxiv-range-btn" data-range="latest">Latest day</button>
+          <button type="button" class="arxiv-range-btn" data-range="all">Last few days</button>
+        </div>
       </div>
 
       <p id="arxiv-meta" class="section-note">Loading&hellip;</p>
