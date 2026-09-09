@@ -6,7 +6,8 @@
   var DEFAULT_CATEGORIES = ["math.AG", "math.NT"];
 
   var searchInput = document.getElementById("arxiv-search");
-  var categoryListEl = document.getElementById("arxiv-category-list");
+  var selectedChipsEl = document.getElementById("arxiv-selected");
+  var dropdownEl = document.getElementById("arxiv-dropdown");
   var metaEl = document.getElementById("arxiv-meta");
   var resultsEl = document.getElementById("arxiv-results");
 
@@ -47,36 +48,90 @@
     window.history.replaceState(null, "", url.toString());
   }
 
-  function renderCategoryChips(filterText) {
-    var query = (filterText || "").trim().toLowerCase();
-    categoryListEl.innerHTML = "";
+  function toggleCategory(code) {
+    if (selected.has(code)) {
+      selected.delete(code);
+    } else {
+      selected.add(code);
+    }
+    persistSelection();
+    renderSelectedChips();
+    renderDropdown(searchInput.value);
+    renderResults();
+  }
 
-    allCategories
-      .filter(function (cat) {
-        if (!query) return true;
-        return (
-          cat.code.toLowerCase().indexOf(query) !== -1 ||
-          cat.name.toLowerCase().indexOf(query) !== -1
-        );
-      })
-      .forEach(function (cat) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "chip" + (selected.has(cat.code) ? " chip-selected" : "");
-        btn.setAttribute("aria-pressed", selected.has(cat.code) ? "true" : "false");
-        btn.textContent = cat.code + " — " + cat.name;
-        btn.addEventListener("click", function () {
-          if (selected.has(cat.code)) {
-            selected.delete(cat.code);
-          } else {
-            selected.add(cat.code);
-          }
-          persistSelection();
-          renderCategoryChips(searchInput.value);
-          renderResults();
+  function renderSelectedChips() {
+    selectedChipsEl.innerHTML = "";
+    if (!selected.size) {
+      selectedChipsEl.hidden = true;
+      return;
+    }
+    selectedChipsEl.hidden = false;
+
+    var byCode = {};
+    allCategories.forEach(function (cat) { byCode[cat.code] = cat; });
+
+    Array.from(selected)
+      .sort()
+      .forEach(function (code) {
+        var cat = byCode[code] || { code: code, name: "" };
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip chip-selected";
+        chip.setAttribute("aria-label", "Remove " + cat.code);
+        chip.innerHTML = escapeHtml(cat.code) + (cat.name ? " — " + escapeHtml(cat.name) : "") + ' <span aria-hidden="true">&times;</span>';
+        chip.addEventListener("click", function () {
+          toggleCategory(code);
         });
-        categoryListEl.appendChild(btn);
+        selectedChipsEl.appendChild(chip);
       });
+  }
+
+  function renderDropdown(filterText) {
+    var query = (filterText || "").trim().toLowerCase();
+    dropdownEl.innerHTML = "";
+
+    var matches = allCategories.filter(function (cat) {
+      if (!query) return true;
+      return (
+        cat.code.toLowerCase().indexOf(query) !== -1 ||
+        cat.name.toLowerCase().indexOf(query) !== -1
+      );
+    });
+
+    if (!matches.length) {
+      var empty = document.createElement("div");
+      empty.className = "arxiv-dropdown-empty";
+      empty.textContent = "No matching categories";
+      dropdownEl.appendChild(empty);
+      return;
+    }
+
+    matches.forEach(function (cat) {
+      var isSelected = selected.has(cat.code);
+      var item = document.createElement("button");
+      item.type = "button";
+      item.className = "arxiv-dropdown-item" + (isSelected ? " arxiv-dropdown-item-selected" : "");
+      item.setAttribute("role", "option");
+      item.setAttribute("aria-selected", isSelected ? "true" : "false");
+      item.innerHTML = (isSelected ? "&check; " : "") + escapeHtml(cat.code) + " — " + escapeHtml(cat.name);
+      // mousedown fires before the input's blur, so the click still lands.
+      item.addEventListener("mousedown", function (e) {
+        e.preventDefault();
+        searchInput.value = "";
+        toggleCategory(cat.code);
+        searchInput.focus();
+      });
+      dropdownEl.appendChild(item);
+    });
+  }
+
+  function openDropdown() {
+    dropdownEl.hidden = false;
+  }
+
+  function closeDropdown() {
+    dropdownEl.hidden = true;
   }
 
   function formatDateHeading(isoDate) {
@@ -183,7 +238,8 @@
       if (validCodes.has(code)) selected.add(code);
     });
 
-    renderCategoryChips("");
+    renderSelectedChips();
+    renderDropdown("");
     renderResults();
 
     var generated = new Date(data.generated_at);
@@ -192,7 +248,23 @@
       generated.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) + ".";
 
     searchInput.addEventListener("input", function () {
-      renderCategoryChips(searchInput.value);
+      renderDropdown(searchInput.value);
+      openDropdown();
+    });
+    searchInput.addEventListener("focus", function () {
+      renderDropdown(searchInput.value);
+      openDropdown();
+    });
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeDropdown();
+        searchInput.blur();
+      }
+    });
+    searchInput.addEventListener("blur", function () {
+      // Let a dropdown-item mousedown register first (it calls
+      // preventDefault so blur still fires, but after its own handler).
+      setTimeout(closeDropdown, 0);
     });
   }
 

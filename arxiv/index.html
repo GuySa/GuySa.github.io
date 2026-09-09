@@ -9,8 +9,11 @@ title: arXiv Digest
 
     <div id="arxiv-app" class="arxiv-app">
       <div class="arxiv-controls">
-        <input type="search" id="arxiv-search" class="arxiv-search" placeholder="Search categories&hellip; (e.g. &ldquo;algebraic&rdquo; or &ldquo;math.AG&rdquo;)" aria-label="Search categories">
-        <div id="arxiv-category-list" class="arxiv-category-list" role="group" aria-label="Categories"></div>
+        <div id="arxiv-selected" class="arxiv-selected-chips" aria-label="Selected categories"></div>
+        <div class="arxiv-combobox">
+          <input type="text" id="arxiv-search" class="arxiv-search" autocomplete="off" placeholder="Add a category&hellip; (e.g. &ldquo;algebraic&rdquo; or &ldquo;math.AG&rdquo;)" aria-label="Search categories">
+          <div id="arxiv-dropdown" class="arxiv-dropdown" role="listbox" aria-label="Categories" hidden></div>
+        </div>
       </div>
 
       <p id="arxiv-meta" class="section-note">Loading&hellip;</p>

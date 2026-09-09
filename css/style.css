@@ -370,23 +370,73 @@ h1, h2, h3 {
   margin-bottom: 12px;
 }
 
+.arxiv-selected-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.arxiv-combobox {
+  position: relative;
+}
+
 .arxiv-search {
   width: 100%;
   padding: 10px 14px;
   font-size: 0.95rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  margin-bottom: 12px;
   font-family: inherit;
 }
 
-.arxiv-category-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  max-height: 180px;
+.arxiv-search:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.arxiv-dropdown {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 260px;
   overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: 4px;
+}
+
+.arxiv-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.arxiv-dropdown-item:hover {
+  background: var(--bg-alt);
+}
+
+.arxiv-dropdown-item-selected {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.arxiv-dropdown-empty {
+  padding: 10px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 .chip {
@@ -408,6 +458,10 @@ h1, h2, h3 {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+}
+
+.chip-selected:hover {
+  background: #2c48d6;
 }
 
 .arxiv-date-group {
