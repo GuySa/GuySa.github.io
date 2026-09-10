@@ -4,10 +4,12 @@ on:
   push:
     branches: ["master"]
   schedule:
-    # 06:00 UTC daily — after arXiv's ~20:00 ET announcement (and its
-    # replacement window) for the previous day, well before most people
-    # check the site in the morning.
-    - cron: "0 6 * * *"
+    # 02:00 UTC daily. arXiv announces at 20:00 US Eastern, which is 00:00 UTC
+    # (EDT) or 01:00 UTC (EST) the next day — 02:00 UTC leaves a ~1-2h buffer
+    # after the announcement in either case, but still runs as early as
+    # possible so a GitHub Actions scheduling delay (common, sometimes hours)
+    # doesn't push the refresh too far into the morning.
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 permissions:
