@@ -1,68 +1,11 @@
-/* Design tokens: Guy Sapire design system (tokens.json) */
 :root {
   --bg: #ffffff;
   --bg-alt: #f6f7f9;
   --text: #1c1f26;
   --text-muted: #5b6270;
   --accent: #3a5bfd;
-  --accent-hover: #2c48d6;
-  --accent-soft: #cddbff;
-  --accent-deep: #12206b;
   --border: #e7e9ee;
-  --on-accent: #ffffff;
-  --shadow-menu: 0 8px 24px rgba(0, 0, 0, 0.08);
-
-  --font-sans: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-14: 56px;
-  --space-16: 64px;
-  --space-24: 96px;
-
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 10px;
-  --radius-pill: 999px;
-
   --max-width: 780px;
-  --max-width-narrow: 640px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #12141a;
-    --bg-alt: #1a1d25;
-    --text: #e8eaf0;
-    --text-muted: #9aa1b0;
-    --accent: #7d97f5;
-    --accent-hover: #93a9f8;
-    --accent-soft: #2a3a7a;
-    --accent-deep: #2c3a9a;
-    --border: #2a2e39;
-    --on-accent: #12141a;
-    --shadow-menu: 0 8px 24px rgba(0, 0, 0, 0.4);
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #12141a;
-  --bg-alt: #1a1d25;
-  --text: #e8eaf0;
-  --text-muted: #9aa1b0;
-  --accent: #7d97f5;
-  --accent-hover: #93a9f8;
-  --accent-soft: #2a3a7a;
-  --accent-deep: #2c3a9a;
-  --border: #2a2e39;
-  --on-accent: #12141a;
-  --shadow-menu: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -75,7 +18,7 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
@@ -84,7 +27,7 @@ body {
 .wrap {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0 24px;
 }
 
 a {
@@ -102,7 +45,7 @@ h1, h2, h3 {
 }
 
 .hero {
-  padding: var(--space-24) 0 var(--space-16);
+  padding: 96px 0 64px;
 }
 
 .hero .eyebrow {
@@ -136,11 +79,11 @@ h1, h2, h3 {
 
 .nav a {
   color: var(--text);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .nav-row-pages {
-  font-size: 0.9rem; /* 14.4px */
+  font-size: 0.9rem;
 }
 
 .nav-row-pages a {
@@ -152,7 +95,7 @@ h1, h2, h3 {
 }
 
 .section {
-  padding: var(--space-14) 0;
+  padding: 56px 0;
 }
 
 .section.alt {
@@ -190,8 +133,8 @@ h1, h2, h3 {
 .card {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .card h3 {
@@ -217,7 +160,7 @@ h1, h2, h3 {
   align-items: center;
   gap: 8px;
   color: var(--text);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .links a:hover {
@@ -265,7 +208,7 @@ h1, h2, h3 {
 }
 
 .paper-title {
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 4px;
 }
 
@@ -306,7 +249,7 @@ h1, h2, h3 {
 }
 
 .note-title {
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 4px;
 }
 
@@ -344,7 +287,7 @@ h1, h2, h3 {
 
 .teaching-table th {
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -368,7 +311,7 @@ h1, h2, h3 {
 /* inner pages (blog) */
 
 .hero-small {
-  padding: var(--space-8) 0;
+  padding: 32px 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -377,13 +320,13 @@ h1, h2, h3 {
 }
 
 .narrow {
-  max-width: var(--max-width-narrow);
+  max-width: 640px;
 }
 
 .back-link {
   display: inline-block;
   margin-bottom: 24px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .byline {
@@ -408,7 +351,7 @@ h1, h2, h3 {
 
 .post-list a {
   color: var(--text);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .post-list a:hover {
@@ -443,20 +386,13 @@ h1, h2, h3 {
   padding: 10px 14px;
   font-size: 0.95rem;
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 8px;
   font-family: inherit;
-  background: var(--bg);
-  color: var(--text);
 }
 
 .arxiv-search:focus {
   outline: none;
   border-color: var(--accent);
-}
-
-.arxiv-search:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
 }
 
 .arxiv-dropdown {
@@ -469,8 +405,8 @@ h1, h2, h3 {
   overflow-y: auto;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-menu);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: 4px;
 }
 
@@ -482,7 +418,7 @@ h1, h2, h3 {
   font-size: 0.9rem;
   padding: 8px 10px;
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: 6px;
   background: none;
   color: var(--text);
   cursor: pointer;
@@ -494,7 +430,7 @@ h1, h2, h3 {
 
 .arxiv-dropdown-item-selected {
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .arxiv-dropdown-empty {
@@ -512,9 +448,9 @@ h1, h2, h3 {
 .arxiv-range-btn {
   font: inherit;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: 6px 14px;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-muted);
@@ -528,14 +464,14 @@ h1, h2, h3 {
 .arxiv-range-btn-active {
   background: var(--text);
   border-color: var(--text);
-  color: var(--bg);
+  color: #fff;
 }
 
 .chip {
   font: inherit;
   font-size: 0.85rem;
   padding: 6px 12px;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-muted);
@@ -549,12 +485,11 @@ h1, h2, h3 {
 .chip-selected {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--on-accent);
+  color: #fff;
 }
 
 .chip-selected:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
+  background: #2c48d6;
 }
 
 .arxiv-date-group {
@@ -593,25 +528,25 @@ h1, h2, h3 {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   padding: 2px 8px;
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   background: var(--bg-alt);
   color: var(--text-muted);
 }
 
 .arxiv-tag-new {
   background: var(--accent);
-  color: var(--on-accent);
+  color: #fff;
 }
 
 .arxiv-tag-cross {
-  background: var(--bg-alt);
-  color: var(--text-muted);
+  background: var(--text-muted);
+  color: #fff;
 }
 
 .arxiv-badge {
   font-size: 0.7rem;
   padding: 2px 8px;
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   border: 1px solid var(--border);
   color: var(--text-muted);
 }
@@ -636,7 +571,7 @@ h1, h2, h3 {
   cursor: pointer;
   color: var(--accent);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .arxiv-abstract p {
@@ -653,11 +588,4 @@ h1, h2, h3 {
 .arxiv-paper-links {
   font-size: 0.85rem;
   margin: 8px 0 0;
-}
-
-button:focus-visible,
-a:focus-visible,
-summary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
 }
