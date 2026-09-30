@@ -181,7 +181,7 @@
 
   function formatDateHeading(isoDate) {
     var d = new Date(isoDate + "T00:00:00Z");
-    return d.toLocaleDateString(undefined, {
+    return d.toLocaleDateString("en-GB", {
       weekday: "long",
       year: "numeric",
       month: "long",
@@ -299,7 +299,7 @@
 
     var generated = new Date(data.generated_at);
     metaEl.textContent =
-      "Data fetched " + generated.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) +
+      "Data fetched " + generated.toLocaleString("en-GB", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }) +
       " (arXiv's last " + windowDays + " days of submissions).";
 
     rangeEl.addEventListener("click", function (e) {
