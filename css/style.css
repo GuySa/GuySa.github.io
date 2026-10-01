@@ -4,8 +4,8 @@
   --bg-alt: #f6f7f9;
   --text: #1c1f26;
   --text-muted: #5b6270;
-  --accent: #3a5bfd;
-  --accent-hover: #2c48d6;
+  --accent: #3f5fb0;
+  --accent-hover: #324d96;
   --accent-soft: #cddbff;
   --accent-deep: #12206b;
   --border: #e7e9ee;
@@ -31,7 +31,7 @@
   --radius-xl: 10px;
   --radius-pill: 999px;
 
-  --max-width: 780px;
+  --max-width: 1040px;
   --max-width-narrow: 640px;
 }
 
@@ -41,8 +41,8 @@
     --bg-alt: #1a1d25;
     --text: #e8eaf0;
     --text-muted: #9aa1b0;
-    --accent: #7d97f5;
-    --accent-hover: #93a9f8;
+    --accent: #8fa4e0;
+    --accent-hover: #a6b8ec;
     --accent-soft: #2a3a7a;
     --accent-deep: #2c3a9a;
     --border: #2a2e39;
@@ -56,8 +56,8 @@
   --bg-alt: #1a1d25;
   --text: #e8eaf0;
   --text-muted: #9aa1b0;
-  --accent: #7d97f5;
-  --accent-hover: #93a9f8;
+  --accent: #8fa4e0;
+  --accent-hover: #a6b8ec;
   --accent-soft: #2a3a7a;
   --accent-deep: #2c3a9a;
   --border: #2a2e39;
@@ -167,24 +167,26 @@ h1, h2, h3 {
 /* LabeledSection: label column at the left, content at the right */
 
 .labeled-grid {
+  container-type: inline-size;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--space-6);
 }
 
 .section h2.section-label {
-  grid-column: span 4;
+  grid-column: span 5;
   margin: 0;
   color: var(--text-muted);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  line-height: 1.6;
+  font-size: min(34px, 4.5cqw); /* scales so "MISCELLANEOUS" always fits the column */
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
   text-transform: uppercase;
 }
 
 .section-content {
-  grid-column: span 8;
+  grid-column: span 7;
   min-width: 0;
 }
 
@@ -207,6 +209,7 @@ h1, h2, h3 {
   }
 
   .section h2.section-label {
+    font-size: 30px;
     margin-bottom: var(--space-2);
   }
 }
@@ -429,7 +432,8 @@ h1, h2, h3 {
   gap: 10px;
 }
 
-.narrow {
+/* reading pages keep the site width; only the text measure is narrow */
+.narrow > * {
   max-width: var(--max-width-narrow);
 }
 
