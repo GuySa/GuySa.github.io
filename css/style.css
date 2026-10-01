@@ -276,6 +276,46 @@ h1, h2, h3 {
   font-size: 0.9rem; /* meta, 14.4px */
 }
 
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  gap: 12px;
+  padding: 0 0 14px;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+}
+
+.theme-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Arrow sits under the icon of the active mode and points up at it. */
+.theme-arrow {
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  transition: transform 0.15s ease;
+}
+
+.theme-toggle[data-mode="dark"] .theme-arrow {
+  transform: translateX(28px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-arrow {
+    transition: none;
+  }
+}
+
 .footer-name {
   margin-left: auto;
   color: var(--text-muted);
