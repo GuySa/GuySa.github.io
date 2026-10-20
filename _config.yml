@@ -15,3 +15,4 @@ exclude:
   - LICENSE
   - scripts
   - vendor
+  - _posts/template.md
